@@ -15,7 +15,6 @@ import * as z from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,6 +24,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { FileUpload } from "@/components/ui/file-upload";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -37,9 +38,12 @@ const formSchema = z.object({
 
 export const InitialModal = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,9 +51,17 @@ export const InitialModal = () => {
       imageUrl: "",
     },
   });
+
   const isLoading = form.formState.isSubmitting;
-  const onSubmit = (value: z.infer<typeof formSchema>) => {
-    console.log(value, "ssss");
+  const onSubmit = async (value: z.infer<typeof formSchema>) => {
+    try {
+      await axios.post("/api/servers", value);
+      form.reset();
+      router.refresh();
+      window.location.reload();
+    } catch {
+      console.log("error");
+    }
   };
 
   if (!isMounted) {
