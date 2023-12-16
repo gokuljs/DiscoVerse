@@ -4,16 +4,16 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 interface ActionTooltipPros {
     label: string;
     children: React.ReactNode;
-    side?: 'top' | 'right ' | 'left' | 'bottom';
+    side?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
 }
 const ActionTooltip: React.FC<ActionTooltipPros> = ({ label, children, side, align }) => {
     return (
         <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger>Hover</TooltipTrigger>
-                <TooltipContent>
-                    <p>Add to library</p>
+            <Tooltip delayDuration={50}>
+                <TooltipTrigger>{children}</TooltipTrigger>
+                <TooltipContent side={side} align={align}>
+                    <p className='font-semibold text-sm capitalize'>{label.toLowerCase()}</p>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>
