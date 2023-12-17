@@ -39,12 +39,13 @@ export const CreateServerModal = () => {
             await axios.post('/api/servers', value);
             form.reset();
             router.refresh();
+            onClose();
         } catch {
             console.log('error');
         }
     };
 
-    const isModalOpen = isOpen && type === 'creteServer';
+    const isModalOpen = isOpen && type === 'createServer';
     const handleClose = (): void => {
         form.reset();
         onClose();
