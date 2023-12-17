@@ -6,7 +6,6 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
         "prepare": "husky install",
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx}\"",
         "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,md,mdx}\""
