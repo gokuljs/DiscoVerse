@@ -1,3 +1,4 @@
+import { ServerSideBar } from '@/components/server/server-sidebar';
 import { currentProfile } from '@/lib/current-profile';
 import { db } from '@/lib/db';
 import { redirectToSignIn } from '@clerk/nextjs';
@@ -31,8 +32,10 @@ const ServerIdLayout: React.FC<ServerIdLayoutProps> = async ({ children, params 
 
     return (
         <div className='h-full'>
-            <div className='hidden md:flex h-full w-60 z-60 flex-col inset-y-0'></div>
-            {children}
+            <div className='hidden md:flex h-full w-60 z-60 flex-col fixed inset-y-0'>
+                <ServerSideBar serverId={params.serverId} />
+            </div>
+            <main className='h-full md:pl-60'>{children}</main>
         </div>
     );
 };
