@@ -15,7 +15,7 @@ const NavigationItem: React.FC<NavigationItemProps> = ({ id, imageUrl, name }) =
     const params = useParams();
     const router = useRouter();
     const handleClick = (): void => {
-        router.push(`servers/${id}`);
+        router.push(`/servers/${id}`);
     };
 
     // should find the root cause
