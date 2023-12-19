@@ -2,8 +2,22 @@
 import { ServerWithProfileWithMembers } from '@/types';
 import { MemberRole } from '@prisma/client';
 import React from 'react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
-import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from 'lucide-react';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from '../ui/dropdown-menu';
+import {
+    ChevronDown,
+    LogOut,
+    PlusCircle,
+    Settings,
+    Trash,
+    UserPlus,
+    Users
+} from 'lucide-react';
 
 interface ServerHeaderProps {
     server: ServerWithProfileWithMembers;
