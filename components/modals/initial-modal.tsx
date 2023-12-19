@@ -1,10 +1,25 @@
 'use client';
 
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from '@/components/ui/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
@@ -56,13 +71,19 @@ export const InitialModal = () => {
         <Dialog open>
             <DialogContent className='bg-white text-black p-0 overflow-hidden'>
                 <DialogHeader className='p-8 px-6'>
-                    <DialogTitle className='text-2xl text-center font-bold'>Customize your server</DialogTitle>
+                    <DialogTitle className='text-2xl text-center font-bold'>
+                        Customize your server
+                    </DialogTitle>
                     <DialogDescription className='text-center text-zinc-500'>
-                        Give your server a personality with a name and an image. You can always change it later.
+                        Give your server a personality with a name and an image.
+                        You can always change it later.
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className='space-y-8'
+                    >
                         <div className='space-y-8 px-6'>
                             <div className='flex items-center justify-center text-center'>
                                 <FormField
@@ -71,7 +92,11 @@ export const InitialModal = () => {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
-                                                <FileUpload endPoint='serverImage' value={field.value} onChange={field.onChange} />
+                                                <FileUpload
+                                                    endPoint='serverImage'
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                         </FormItem>
                                     )}

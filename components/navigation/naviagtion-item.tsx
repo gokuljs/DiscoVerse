@@ -11,7 +11,11 @@ interface NavigationItemProps {
     imageUrl: string;
     name: string;
 }
-const NavigationItem: React.FC<NavigationItemProps> = ({ id, imageUrl, name }) => {
+const NavigationItem: React.FC<NavigationItemProps> = ({
+    id,
+    imageUrl,
+    name
+}) => {
     const params = useParams();
     const router = useRouter();
     const handleClick = (): void => {
@@ -25,7 +29,10 @@ const NavigationItem: React.FC<NavigationItemProps> = ({ id, imageUrl, name }) =
     }
     return (
         <ActionTooltip side='right' align='center' label={name}>
-            <button onClick={handleClick} className='group relative flex items-center'>
+            <button
+                onClick={handleClick}
+                className='group relative flex items-center'
+            >
                 <div
                     className={cn(
                         'absolute left-0 bg-primary rounded-r-full transition-all w-[4px]',
@@ -36,7 +43,8 @@ const NavigationItem: React.FC<NavigationItemProps> = ({ id, imageUrl, name }) =
                 <div
                     className={cn(
                         'relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden',
-                        params.serverId === id && 'bg-primary/10 text-primary rounded-[16px]'
+                        params.serverId === id &&
+                            'bg-primary/10 text-primary rounded-[16px]'
                     )}
                 >
                     <Image fill src={imageUrl} alt='channel' />

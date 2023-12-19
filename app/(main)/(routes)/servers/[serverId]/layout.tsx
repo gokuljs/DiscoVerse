@@ -10,7 +10,10 @@ interface ServerIdLayoutProps {
     params: { serverId: string };
 }
 
-const ServerIdLayout: React.FC<ServerIdLayoutProps> = async ({ children, params }) => {
+const ServerIdLayout: React.FC<ServerIdLayoutProps> = async ({
+    children,
+    params
+}) => {
     const profile = await currentProfile();
     if (!profile) {
         return redirectToSignIn();

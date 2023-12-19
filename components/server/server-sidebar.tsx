@@ -39,12 +39,21 @@ export const ServerSideBar: React.FC<serverIdProps> = async ({ serverId }) => {
         return redirect('/');
     }
 
-    const textChannels = server.channels.filter((item) => item.type === ChannelType.TEXT);
-    const audioChannels = server.channels.filter((item) => item.type === ChannelType.AUDIO);
-    const videoChannels = server.channels.filter((item) => item.type === ChannelType.VIDEO);
-    const members = server.members.filter((item) => item.profileId !== profile.id);
+    const textChannels = server.channels.filter(
+        (item) => item.type === ChannelType.TEXT
+    );
+    const audioChannels = server.channels.filter(
+        (item) => item.type === ChannelType.AUDIO
+    );
+    const videoChannels = server.channels.filter(
+        (item) => item.type === ChannelType.VIDEO
+    );
+    const members = server.members.filter(
+        (item) => item.profileId !== profile.id
+    );
 
-    const role = server.members.find((item) => item.profileId === profile.id)?.role;
+    const role = server.members.find((item) => item.profileId === profile.id)
+        ?.role;
 
     return (
         <div className='flex flex-col text-primary w-full h-full dark:bg-[#2B2D31] bg-[#f2f3f5]'>
