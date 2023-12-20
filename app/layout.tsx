@@ -13,12 +13,26 @@ export const metadata: Metadata = {
     description: 'Chat application'
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+    children
+}: {
+    children: React.ReactNode;
+}) {
     return (
         <ClerkProvider>
             <html lang='en' suppressHydrationWarning>
-                <body className={cn(inter.className, 'bg-white dark:bg-[#313338]')}>
-                    <ThemeProvider attribute='class' defaultTheme='dark' enableSystem={false} storageKey='discord-theme'>
+                <body
+                    className={cn(
+                        inter.className,
+                        'bg-white dark:bg-[#313338]'
+                    )}
+                >
+                    <ThemeProvider
+                        attribute='class'
+                        defaultTheme='dark'
+                        enableSystem={false}
+                        storageKey='discord-theme'
+                    >
                         <ModalProvider />
                         {children}
                     </ThemeProvider>
