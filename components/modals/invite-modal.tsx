@@ -17,7 +17,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 export const InviteModal = () => {
-    const { isOpen, type, onClose, data } = useModal();
+    const { isOpen, type, onClose, data, onOpen } = useModal();
     const origin = useOrigin();
     const [copied, setCopied] = useState<boolean>(false);
     const [isLoading, SetIsLoading] = useState<boolean>(false);
@@ -37,8 +37,11 @@ export const InviteModal = () => {
         try {
             SetIsLoading(true);
             const response = await axios.patch(
-                `api/servers/${server?.id}/invite-code`
+                `/api/servers/${server?.id}/invite-code`
             );
+            onOpen('invite', {
+                server: response.data
+            });
         } catch (error) {
             console.log(error);
         } finally {
@@ -60,10 +63,15 @@ export const InviteModal = () => {
                     </Label>
                     <div className='flex items-center mt-2 gap-x-2'>
                         <Input
+                            disabled={isLoading}
                             className='bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0'
                             value={inviteUrl}
                         />
-                        <Button size='icon' onClick={onCopy}>
+                        <Button
+                            size='icon'
+                            onClick={onCopy}
+                            disabled={isLoading}
+                        >
                             {copied ? (
                                 <Check className='w-4 h-4' />
                             ) : (
@@ -72,9 +80,11 @@ export const InviteModal = () => {
                         </Button>
                     </div>
                     <Button
+                        disabled={isLoading}
                         variant='link'
                         size='sm'
                         className='text-xs text-zinc-500 mt-4'
+                        onClick={regenerate}
                     >
                         Generate a new link
                         <RefreshCw className='w-4 h-4 ml-2' />
