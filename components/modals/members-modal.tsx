@@ -26,7 +26,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuPortal,
     DropdownMenuSeparator,
     DropdownMenuSub,
@@ -34,6 +33,10 @@ import {
     DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { DropdownMenuSubTrigger } from '@radix-ui/react-dropdown-menu';
+import { MemberRole } from '@prisma/client';
+import qs from 'query-string';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const roleIconMap = {
     GUEST: null,
@@ -42,10 +45,31 @@ const roleIconMap = {
 };
 
 export const MembersModal = () => {
+    const router = useRouter();
     const { isOpen, type, onClose, data, onOpen } = useModal();
     const [loadingId, setIsLoadingId] = useState('');
     const isModalOpen = isOpen && type === 'members';
     const { server } = data as { server: ServerWithProfileWithMembers };
+    const onRoleChange = async (memberId: string, role: MemberRole) => {
+        try {
+            setIsLoadingId(memberId);
+            const url = qs.stringifyUrl({
+                url: `/api/members/${memberId}`,
+                query: {
+                    serverId: server.id,
+                    memberId: memberId
+                }
+            });
+
+            const response = await axios.patch(url, { role });
+            router.refresh();
+            onOpen('members', { server: response.data });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoadingId('');
+        }
+    };
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -90,7 +114,14 @@ export const MembersModal = () => {
                                                     </DropdownMenuSubTrigger>
                                                     <DropdownMenuPortal>
                                                         <DropdownMenuSubContent>
-                                                            <DropdownMenuItem>
+                                                            <DropdownMenuItem
+                                                                onClick={() => {
+                                                                    onRoleChange(
+                                                                        member.id,
+                                                                        'GUEST'
+                                                                    );
+                                                                }}
+                                                            >
                                                                 <Shield className='h-4 m-4 mr-2' />
                                                                 Guest
                                                                 {member.role ===
@@ -98,7 +129,14 @@ export const MembersModal = () => {
                                                                     <Check className='h-4 w-4  ml-auto' />
                                                                 )}
                                                             </DropdownMenuItem>
-                                                            <DropdownMenuItem>
+                                                            <DropdownMenuItem
+                                                                onClick={() => {
+                                                                    onRoleChange(
+                                                                        member.id,
+                                                                        'MODERATOR'
+                                                                    );
+                                                                }}
+                                                            >
                                                                 <ShieldCheck className='h-4 m-4 mr-2' />
                                                                 Moderator
                                                                 {member.role ===
