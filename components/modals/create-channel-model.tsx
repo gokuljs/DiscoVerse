@@ -21,7 +21,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useModal } from '../hooks/us-modal-store';
 import {
     Select,
@@ -48,7 +48,7 @@ const formSchema = z.object({
 export const CreateChannelModel = () => {
     const { isOpen, type, onClose } = useModal();
     const router = useRouter();
-
+    const params = useParams();
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -60,7 +60,13 @@ export const CreateChannelModel = () => {
     const isLoading = form.formState.isSubmitting;
     const onSubmit = async (value: z.infer<typeof formSchema>) => {
         try {
-            await axios.post('/api/channels', value);
+            const url = qs.stringifyUrl({
+                url: '/api/channels',
+                query: {
+                    serverId: params?.serverId
+                }
+            });
+            await axios.post(url, value);
             form.reset();
             router.refresh();
             onClose();
