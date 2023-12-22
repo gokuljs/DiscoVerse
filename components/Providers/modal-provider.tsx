@@ -1,5 +1,6 @@
 'use client';
 import useClientSideRender from '../hooks/useMount';
+import { CreateChannelModel } from '../modals/create-channel-model';
 import { CreateServerModal } from '../modals/create-server-modal';
 import { EditServerModal } from '../modals/edit-server-modal';
 import { InviteModal } from '../modals/invite-modal';
@@ -16,6 +17,7 @@ export const ModalProvider = () => {
             <InviteModal />
             <EditServerModal />
             <MembersModal />
+            <CreateChannelModel />
         </>
     );
 };
