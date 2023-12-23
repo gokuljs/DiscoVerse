@@ -18,9 +18,7 @@ const iconMap = {
 };
 
 const roleIconMap = {
-    [MemberRole.ADMIN]: (
-        <ShieldAlert className='mr-2 h-4 w-4 text-indigo-400' />
-    ),
+    [MemberRole.ADMIN]: <ShieldAlert className='mr-2 h-4 w-4 text-rose-400' />,
     [MemberRole.MODERATOR]: (
         <ShieldCheck className='mr-2 h-4 w-4 text-indigo-400' />
     ),
