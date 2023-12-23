@@ -2,6 +2,7 @@
 import useClientSideRender from '../hooks/useMount';
 import { CreateChannelModel } from '../modals/create-channel-model';
 import { CreateServerModal } from '../modals/create-server-modal';
+import { DeleteServerModal } from '../modals/delete-server-modal';
 import { EditServerModal } from '../modals/edit-server-modal';
 import { InviteModal } from '../modals/invite-modal';
 import { LeaveModal } from '../modals/leave-modal';
@@ -20,6 +21,7 @@ export const ModalProvider = () => {
             <MembersModal />
             <CreateChannelModel />
             <LeaveModal />
+            <DeleteServerModal />
         </>
     );
 };
