@@ -9,7 +9,7 @@ import { ModalProvider } from '@/components/Providers/modal-provider';
 const inter = Open_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Discord',
+    title: 'DiscordVerse',
     description: 'Chat application'
 };
 
