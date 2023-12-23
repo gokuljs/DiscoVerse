@@ -8,6 +8,7 @@ import ServerSearch from './server-search';
 import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from 'lucide-react';
 import { Separator } from '../ui/separator';
 import { ServerSection } from './server-section';
+import ServerChannel from './server-channel';
 
 interface serverIdProps {
     serverId: string;
@@ -128,6 +129,50 @@ export const ServerSideBar: React.FC<serverIdProps> = async ({ serverId }) => {
                             role={role}
                             label='Text Channels'
                         />
+                        {textChannels.map((channel) => (
+                            <ServerChannel
+                                key={channel.id}
+                                channel={channel}
+                                server={server}
+                                role={role}
+                            />
+                        ))}
+                    </div>
+                )}
+                {!!audioChannels.length && (
+                    <div className='mb-2'>
+                        <ServerSection
+                            sectionType='channels'
+                            channelType={ChannelType.AUDIO}
+                            role={role}
+                            label='Voice Channels'
+                        />
+                        {audioChannels.map((channel) => (
+                            <ServerChannel
+                                key={channel.id}
+                                channel={channel}
+                                server={server}
+                                role={role}
+                            />
+                        ))}
+                    </div>
+                )}
+                {!!videoChannels.length && (
+                    <div className='mb-2'>
+                        <ServerSection
+                            sectionType='channels'
+                            channelType={ChannelType.AUDIO}
+                            role={role}
+                            label='Voice Channels'
+                        />
+                        {videoChannels.map((channel) => (
+                            <ServerChannel
+                                key={channel.id}
+                                channel={channel}
+                                server={server}
+                                role={role}
+                            />
+                        ))}
                     </div>
                 )}
             </ScrollArea>
