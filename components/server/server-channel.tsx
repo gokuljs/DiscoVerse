@@ -6,6 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import React from 'react';
 import ActionTooltip from '../action.tooltip';
+import useClientSideRender from '../hooks/useMount';
 
 interface ServerChannelProps {
     channel: channel;
@@ -27,6 +28,10 @@ const ServerChannel: React.FC<ServerChannelProps> = ({
     const router = useRouter();
     const params = useParams();
     const Icon = iconMap[channel.type];
+    const isMounted = useClientSideRender();
+    if (!isMounted) {
+        return null;
+    }
     return (
         <button
             onClick={() => {}}
