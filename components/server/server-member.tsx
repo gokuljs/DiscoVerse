@@ -22,8 +22,15 @@ const ServerMember = ({ member, server }: ServerMemberProps) => {
     const params = useParams();
     const router = useRouter();
     const icon = roleIconMap[member.role];
+    const onClick = () => {
+        // router.push(`/severs/${params.serverId}/conversations/${member.id}`);
+        router.push(`/servers/${params.serverId}/conversations/${member.id}`);
+    };
     return (
         <button
+            onClick={() => {
+                onClick();
+            }}
             className={cn(
                 'group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1',
                 params?.memberId === member.id &&
@@ -37,7 +44,7 @@ const ServerMember = ({ member, server }: ServerMemberProps) => {
             <p
                 className={cn(
                     'font-semibold group-hover text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition capitalize',
-                    params.channelId === member.id &&
+                    params?.memberId === member.id &&
                         'text-primary dark:group-active:text-white'
                 )}
             >
