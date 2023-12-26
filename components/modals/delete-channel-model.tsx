@@ -12,22 +12,30 @@ import { Button } from '../ui/button';
 import { useState } from 'react';
 import axios from 'axios';
 import { DialogDescription } from '@radix-ui/react-dialog';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import qs from 'query-string';
 
 export const DeleteChannelModel = () => {
     const router = useRouter();
+    const params = useParams();
     const { isOpen, type, onClose, data, onOpen } = useModal();
     const [isLoading, setIsLoading] = useState(false);
     const isModalOpen = isOpen && type === 'deleteChannel';
-    const { server } = data;
+    const { server, channel } = data;
 
     const onClick = async () => {
         try {
             setIsLoading(true);
-            await axios.delete(`/api/servers/${server?.id}`);
+            const url = qs.stringifyUrl({
+                url: `/api/channels/${channel?.id}`,
+                query: {
+                    serverId: server?.id
+                }
+            });
+            await axios.delete(url);
             onClose();
             router.refresh();
-            router.push('/');
+            router.push(`/servers/${server?.id}`);
             window.location.reload();
         } catch (error) {
             console.log(error);
@@ -41,12 +49,12 @@ export const DeleteChannelModel = () => {
             <DialogContent className='bg-white text-black p-0 overflow-hidden'>
                 <DialogHeader className='p-8 px-6'>
                     <DialogTitle className='text-2xl text-center font-bold'>
-                        Delete Server
+                        Delete Channel
                     </DialogTitle>
                     <DialogDescription>
                         Are You sure you want to do this ? <br />
                         <span className='font-semibold text-indigo-500'>
-                            {server?.name}{' '}
+                            #{channel?.name}{' '}
                         </span>
                         will be Permanently Deleted.
                     </DialogDescription>

@@ -14,7 +14,7 @@ export type ModalType =
 
 interface ModalData {
     server?: Server;
-    channel?: Channel;
+    channel?: channel;
     channelType?: ChannelType;
 }
 
