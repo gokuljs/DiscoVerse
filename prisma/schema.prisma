@@ -76,3 +76,9 @@ model channel {
   @@index([profileId])
   @@index([serverId])
 }
+
+model Message {
+  id      String @id @default(uuid())
+  content String @db.Text
+  fileUrl String @db.Text
+}
