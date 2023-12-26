@@ -7,6 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 import React from 'react';
 import ActionTooltip from '../action.tooltip';
 import useClientSideRender from '../hooks/useMount';
+import { useModal } from '../hooks/us-modal-store';
 
 interface ServerChannelProps {
     channel: channel;
@@ -26,6 +27,7 @@ const ServerChannel: React.FC<ServerChannelProps> = ({
     role
 }) => {
     const router = useRouter();
+    const { onOpen } = useModal();
     const params = useParams();
     const Icon = iconMap[channel.type];
     const isMounted = useClientSideRender();
@@ -55,10 +57,26 @@ const ServerChannel: React.FC<ServerChannelProps> = ({
                 role !== MemberRole.GUEST && (
                     <div className='ml-auto flex items-center gap-x-2'>
                         <ActionTooltip label='Edit'>
-                            <Edit className='hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition' />
+                            <Edit
+                                onClick={() => {
+                                    onOpen('editChannel', {
+                                        server,
+                                        channel
+                                    });
+                                }}
+                                className='hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition'
+                            />
                         </ActionTooltip>
                         <ActionTooltip label='Delete'>
-                            <Trash className='hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition' />
+                            <Trash
+                                onClick={() => {
+                                    onOpen('deleteChannel', {
+                                        server,
+                                        channel
+                                    });
+                                }}
+                                className='hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition'
+                            />
                         </ActionTooltip>
                     </div>
                 )}
